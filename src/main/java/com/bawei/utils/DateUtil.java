@@ -8,6 +8,8 @@ import java.util.Date;
 public class DateUtil {
 	
 	private static SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+	
+	private static SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	//根据生日计算年龄
 	public static int GetAgeBrithday(String birthday) throws ParseException {
@@ -136,5 +138,19 @@ public class DateUtil {
 		return calendar.getTime();
 		
 	}
+	
+	//通过当前时间来获得24小时前的时间
+		public static String getIntervalDate(long millis) {
+			//获得系统当前毫秒数
+			Date date = new Date();
+			long time = date.getTime();
+			//获得需要得到当前系统的毫秒
+			long time1 = time-millis;
+			//通过获得的毫秒得到时间
+			date.setTime(time1);
+			String format = sdf2.format(date);
+			return format;
+			
+		}
 	
 }
