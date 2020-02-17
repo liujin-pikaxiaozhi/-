@@ -5,46 +5,47 @@ import java.io.File;
 /**
  * 
  * @ClassName: FileUtil 
- * @Description: 鏂囦欢宸ュ叿绫?
+ * @Description: 文件工具类
  * @author:lq 
- * @date: 2020骞?1鏈?2鏃? 涓婂崍11:08:02
+ * @date: 2020年1月2日 上午11:08:02
  */
 public class FileUtil {
 	
-	//鑾峰彇鏂囦欢鎵╁睍鍚?
-	public static String getSuffix(String fileName) {
-		//a.ba.jpg   jpg
-		if(fileName!=null && !"".equals(fileName)){
-			//鑾峰緱.灏忔爣
-			int lastIndexOf = fileName.lastIndexOf(".");
-			return fileName.substring(lastIndexOf+1);
-		}else {
-			return "涓嶆槸鏈夋晥鏂囦欢";
-		}
-	}
 	
-	//### 鍒犻櫎鏂囦欢
-//濡傛灉鏄洰褰曪紝鍒欎笅闈㈢殑鏂囦欢鍜屾墍鏈夊瓙鐩綍涓殑鏂囦欢閮借鍒犻櫎
-//浣跨敤閫掑綊銆傛秹鍙婂唴瀹广?傚垽鏂洰褰曠殑瀛樺湪鎬э紝鍒ゆ柇鏄惁涓虹洰褰曟垨鏂囦欢锛屽垹闄?
-	public static void deleteFile(File file) {
-		//鍒ゆ柇鏄惁鏄枃浠跺す
-		if(file.isDirectory()) {
-			//鑾峰緱姝ゆ枃浠跺す涓嬬殑鎵?鏈夌殑鏂囦欢鎴栬?呮枃浠跺す
-			File[] listFiles = file.listFiles();
-			for (File file2 : listFiles) {
-				//閫掑綊鍒犻櫎鏂囦欢
-				deleteFile(file2);
+	//获取文件扩展名
+		public static String getSuffix(String fileName) {
+			//a.ba.jpg   jpg
+			if(fileName!=null && !"".equals(fileName)){
+				//获得.小标
+				int lastIndexOf = fileName.lastIndexOf(".");
+				return fileName.substring(lastIndexOf+1);
+			}else {
+				return "不是有效文件";
 			}
-			file.delete();
-		}else {
-			//涓嶆槸鏂囦欢澶?   灏辨槸鏂囦欢
-			file.delete();//鐩存帴鍒犻櫎
 		}
-		
-	}
-	//鑾峰彇鎿嶄綔绯荤粺鐢ㄦ埛鐩綍
-	public static String getSystemUserHome() {
-		return System.getProperty("user.home");
-	}
+	
+		//### 删除文件
+		//如果是目录，则下面的文件和所有子目录中的文件都要删除
+		//使用递归。涉及内容。判断目录的存在性，判断是否为目录或文件，删除
+			public static void deleteFile(File file) {
+				//判断是否是文件夹
+				if(file.isDirectory()) {
+					//获得此文件夹下的所有的文件或者文件夹
+					File[] listFiles = file.listFiles();
+					for (File file2 : listFiles) {
+						//递归删除文件
+						deleteFile(file2);
+					}
+					file.delete();
+				}else {
+					//不是文件夹   就是文件
+					file.delete();//直接删除
+				}
+				
+			}
+			//获取操作系统用户目录
+			public static String getSystemUserHome() {
+				return System.getProperty("user.home");
+			}
 
 }

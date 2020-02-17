@@ -1,5 +1,11 @@
 package com.bawei.utils;
-
+/**
+ * 
+ * @ClassName: StringUtil 
+ * @Description: 字符串工具类
+ * @author:lq 
+ * @date: 2020年1月3日 上午9:01:13
+ */
 public class StringUtil {
 
 	//判断字符串是否为空
